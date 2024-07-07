@@ -1,32 +1,33 @@
 // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-pragma solidity >=0.6.12 <0.9.0;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+contract TRANToken is ERC20 {
+    address public admin;
 
-
-contract MyToken {
-    // public variables here
-
-    string public tokenName = "TRAN";
-    string public tokenAbb = "TRN";
-    uint256 public totalSupply = 0;
-
-    // mapping variable here
-
-    mapping(address => uint256) public balances;
-
-    // mint function
-
-    function mint(address _address, uint256 value) public {
-        totalSupply += value;
-        balances[_address] += value;
+    constructor() ERC20("TRAN", "TN") {
+        admin = msg.sender;
+        _mint(address(this), 10 * 10 ** decimals());
     }
 
-    // burn function
-    function burn(address _address, uint256 value) public {
-        if (balances[_address] >= value) {
-            totalSupply -= value;
-            balances[_address] -= value;
-        }
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Owner not exist");
+        _;
+    }
+
+    function MintTokens(address recipient, uint256 quantity) public onlyAdmin {
+        uint256 balance = balanceOf(address(this));
+        require(balance >= quantity, "In-sufficient balance");
+        _transfer(address(this), recipient, quantity);
+    }
+
+    function BurnTokens(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+
+    function transferTokens(address recipient, uint256 amount) public returns (bool) {
+        _transfer(msg.sender, recipient, amount);
+        return true;
     }
 }
