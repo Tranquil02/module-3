@@ -45,11 +45,11 @@ It also sets the deployer of the contract as the admin and mints an initial supp
 
 ## Deployment
 
-To deploy the `RishiToken` contract:
+To deploy the `TRANToken` contract:
 
 1. Open [Remix](https://remix.ethereum.org/).
-2. Create a new file named `RishiToken.sol` and paste the Solidity code.
-3. Compile the `RishiToken.sol` file using the Solidity compiler.
+2. Create a new file named `Contract.sol` and paste the Solidity code.
+3. Compile the `Contract.sol` file using the Solidity compiler.
 4. Deploy the contract using the "Deploy & Run Transactions" tab in Remix.
 
 ## Usage
