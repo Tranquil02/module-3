@@ -1,30 +1,82 @@
-# Metacraft Course3 Module 3
-## MyToken 
+# TRAN token
 
-## Overview
+`TRANToken` is a custom ERC20 token implemented in Solidity. This token includes additional functionalities such as minting by the contract admin and burning by any user. The token's symbol is "TN".
 
-This project implements a simple ERC20-like token contract in Solidity. The contract allows minting and burning of tokens, and tracks the total supply and balances of each address.
+## Features
 
-## Requirements
+- **Minting**: The contract owner (admin) can mint tokens to any address.
+- **Burning**: Any user can burn their own tokens.
+- **Transferring**: Users can transfer tokens to other addresses.
 
-1. **Public Variables**:
-    - `tokenName`: Name of the token.
-    - `tokenAbb`: Abbreviation of the token.
-    - `totalSupply`: Total supply of the tokens.
+## Contract Details
 
-2. **Mapping**:
-    - `balances`: Mapping of addresses to their respective balances.
+### Constructor
 
-3. **Functions**:
-    - `mint(address _address, uint256 value)`: Mints new tokens and assigns them to the specified address. Increases the total supply by the specified value.
-    - `burn(address _address, uint256 value)`: Burns tokens from the specified address. Decreases the total supply by the specified value. Ensures that the address has enough balance to burn the specified amount.
+The constructor initializes the token with the following parameters:
 
+- Name: TRAN
+- Symbol: TN
+
+It also sets the deployer of the contract as the admin and mints an initial supply of 10 tokens (multiplied by 10^decimals) to the contract address.
+
+### Modifiers
+
+- `onlyAdmin`: Restricts certain functions to be callable only by the admin.
+
+### Functions
+
+- `MintTokens(address recipient, uint256 quantity)`: Allows the admin to transfer tokens from the contract's balance to a specified recipient address.
+  - **Parameters**:
+    - `recipient`: The address to receive the minted tokens.
+    - `quantity`: The number of tokens to be minted.
+  - **Requirements**:
+    - Caller must be the admin.
+    - The contract must have a sufficient balance to transfer.
+
+- `BurnTokens(uint256 amount)`: Allows any user to burn a specified amount of their own tokens.
+  - **Parameters**:
+    - `amount`: The number of tokens to be burned.
+
+- `transferTokens(address recipient, uint256 amount)`: Allows a user to transfer tokens to another address.
+  - **Parameters**:
+    - `recipient`: The address to receive the tokens.
+    - `amount`: The number of tokens to be transferred.
+  - **Returns**: `bool` indicating the success of the transfer.
+
+## Deployment
+
+To deploy the `RishiToken` contract:
+
+1. Open [Remix](https://remix.ethereum.org/).
+2. Create a new file named `RishiToken.sol` and paste the Solidity code.
+3. Compile the `RishiToken.sol` file using the Solidity compiler.
+4. Deploy the contract using the "Deploy & Run Transactions" tab in Remix.
 
 ## Usage
 
-1. **Deploy the Contract**: Deploy the contract to an Ethereum network (e.g., using Remix, Truffle, or Hardhat).
+### Minting Tokens
 
-2. **Minting Tokens**: Call the `mint` function with the desired address and amount of tokens to increase the total supply and the balance of the specified address.
+Only the admin can mint tokens. To mint tokens:
 
-3. **Burning Tokens**: Call the `burn` function with the desired address and amount of tokens to decrease the total supply and the balance of the specified address. Ensure the address has enough tokens to burn.
+1. Call the `MintTokens` function.
+2. Provide the recipient address and the quantity of tokens to mint.
 
+### Burning Tokens
+
+Any user can burn their own tokens. To burn tokens:
+
+1. Call the `BurnTokens` function.
+2. Provide the amount of tokens to burn.
+
+### Transferring Tokens
+
+Any user can transfer tokens to another address. To transfer tokens:
+
+1. Call the `transferTokens` function.
+2. Provide the recipient address and the amount of tokens to transfer.
+
+
+## Authors
+
+Prashant Kumar
+@Tranquil02
